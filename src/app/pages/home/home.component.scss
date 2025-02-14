@@ -1,0 +1,352 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    position: relative;
+  }
+  
+  /* Ajuste para o container principal, se houver */
+  main, .container, .wrapper {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  /* Variables */
+  $dark-blue: #2C3E50;
+  $light-blue: #a6dbff;
+  $green: #27AE60;
+  $light-gray: #ECF0F1;
+  $dark-gray: #7F8C8D;
+  
+  /* Global Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: $light-gray;
+  }
+  
+  router-outlet {
+    display: block;
+    margin-top: 80px; /* Mesmo valor do header */
+  }
+  
+  /* Header */
+  /*.header {
+    margin: 0;
+    padding: 1rem 5%;
+    width: 100%;
+    height: 7vw;
+    background-color: $dark-blue;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; // Isso ajuda a manter o header fixo no topo
+    top: 0; // Garante que comece do topo da página
+    left: 0; // Garante que comece da esquerda da página
+    z-index: 1000; // Mantém o header acima de outros elementos
+  
+    .logo-placeholder {
+      background: url("../../../assets/logo-placeholder.png") no-repeat center center;
+      width: 150px; // Ajuste conforme necessário
+      height: 100px; // Ajuste conforme necessário
+      background-size: contain; // Isso garante que a imagem se ajuste ao container
+    }
+  
+    .nav-links {
+      @media (max-width: 768px) {
+        position: fixed;
+        top: 60px; // Altura do header
+        left: 0;
+        width: 100%;
+        background-color: $dark-blue;
+        padding: 1rem;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        
+        &.active {
+          transform: translateY(0);
+        }
+    
+        a {
+          display: block;
+          margin: 1rem 0;
+          text-align: center;
+        }
+      }
+      a {
+        color: $light-blue;
+        text-decoration: none;
+        margin-left: 2rem;
+        transition: color 0.3s;
+  
+        &:hover {
+          color: $light-gray;
+        }
+      }
+    }
+    @media (max-width: 768px) {
+      padding: 0.5rem 3%; // Reduz o padding em telas menores
+      
+      .logo-placeholder {
+        width: 120px; // Logo um pouco menor em mobile
+        height: 40px;
+      }
+    }
+  }*/
+  
+  /* Hero Section */
+  .hero {
+    margin: 0; // Remove qualquer margem
+    padding: 0; // Remove qualquer padding
+    width: 99.58333vw; // Garante largura total
+    height: 98vh; // Altura total da viewport
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../../../assets/BackgroundInicialPage.jpg') no-repeat center center/cover;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative; // Adiciona posicionamento relativo
+    left: 50%; // Move para o centro
+    right: 50%; // Move para o centro
+    margin-left: -50vw; // Compensa o movimento
+    margin-right: -50vw; // Compensa o movimento
+    box-sizing: border-box; // Garante que padding não afete a largura
+  
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem); // Texto responsivo
+      padding: 0 1rem; // Espaçamento para não colar nas bordas
+      color: white;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 768px) {
+      padding: 0 1rem;
+      margin-top: 60px; // Espaço para o header fixo
+      min-height: calc(100vh - 60px); // Ajusta altura considerando o header
+    }
+  }
+  
+  .cta-button {
+    background-color: $green;
+    color: white;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #2ECC71;
+    }
+    @media (max-width: 768px) {
+      padding: 0.8rem 2rem; // Botão um pouco menor em mobile
+      font-size: 1rem;
+    }
+  }
+  
+  .menu-button {
+    display: none;
+    
+    @media (max-width: 768px) {
+      display: block;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  
+  /* Features Section */
+  .features {
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr); // 2 colunas em tablets
+    }
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr; // 1 coluna em mobile
+      padding: 2rem 3%;
+    }
+    padding: 4rem 5%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+  
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+  
+      h3 {
+        color: $dark-blue;
+        margin-bottom: 1rem;
+      }
+  
+      p {
+        color: $dark-gray;
+      }
+    }
+  }
+  
+  /* Testimonials Section */
+  .testimonials {
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      padding: 2rem 3%;
+      
+      .testimonial-card {
+        padding: 1.5rem;
+      }
+    }
+    padding: 4rem 5%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  
+    .testimonial-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+  
+      .client-photo {
+        width: 80px;
+        height: 80px;
+        background-color: #ddd;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+      }
+  
+      h4 {
+        color: $dark-blue;
+      }
+  
+      .role {
+        color: $light-blue;
+        margin: 0.5rem 0;
+      }
+  
+      .testimonial-text {
+        color: $dark-gray;
+      }
+    }
+  }
+  
+  /* Footer */
+  .footer {
+    margin: 0;
+    padding: 0;
+    width: 99.58333vw;
+    background-color: $dark-blue;
+    color: white;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    display: block;
+    bottom: -0.39vw;
+  
+    .footer-section {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+  
+      .social-icons a {
+        color: white;
+        margin-right: 1rem;
+        font-size: 1.5rem;
+        text-decoration: none;
+  
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+  
+      .legal-links a {
+        color: white;
+        text-decoration: none;
+        margin-right: 1.5rem;
+  
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+  
+      .newsletter {
+        display: flex;
+        gap: 1rem;
+  
+        input {
+          padding: 0.5rem;
+          border-radius: 4px;
+          border: none;
+        }
+  
+        button {
+          background-color: $green;
+          color: white;
+          border: none;
+          padding: 0.5rem 1.5rem;
+          border-radius: 4px;
+          cursor: pointer;
+          white-space: nowrap;
+        }
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .footer-section {
+        width: 95%;
+        padding: 2rem 0;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+        
+        .social-icons, .legal-links {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+        
+        .newsletter {
+          width: 90%;
+          flex-direction: column;
+          
+          input, button {
+            width: 100%;
+            margin: 0.5rem 0;
+          }
+        }
+      }
+    }
+  }

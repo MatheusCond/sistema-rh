@@ -1,0 +1,98 @@
+<!-- Header -->
+<!--<header class="header">
+  <div class="logo-placeholder"></div>
+  <nav class="nav-links">
+    <a routerLink="/">Home</a>
+    <a routerLink="/funcionarios">Funcionários</a>
+    <a href="#">Folha de Pagamento</a>
+    <a href="#">Benefícios</a>
+    <a href="#">Relatórios</a>
+  </nav>
+</header>-->
+
+  <!-- Tabela de Funcionários -->
+  <div class="table-container">
+    <div class="table-header">
+      <h2>Lista de Funcionários</h2>
+      <button class="side-add-button" (click)="openForm()">
+        <span class="plus-icon">+</span>
+      </button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cargo</th>
+          <th>Departamento</th>
+          <th>Data Admissão</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let emp of employees()">
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.position }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.hireDate | date:'dd/MM/yyyy' }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="openForm(emp)">✏️</button>
+            <button class="delete-btn" (click)="deleteEmployee(emp.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Mensagem quando não há funcionários -->
+    <div *ngIf="employees().length === 0" class="empty-message">
+      Nenhum funcionário cadastrado
+    </div>
+  </div>
+  
+  <!-- Modal do Formulário -->
+  <div class="modal-overlay" *ngIf="showForm">
+    <div class="modal">
+      <h2>{{ editing ? 'Editar' : 'Novo' }} Funcionário</h2>
+      
+      <form (ngSubmit)="saveEmployee()">
+        <div class="form-group">
+          <label>Nome Completo:</label>
+          <input type="text" [(ngModel)]="selectedEmployee.name" name="name" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Cargo:</label>
+          <input type="text" [(ngModel)]="selectedEmployee.position" name="position" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Departamento:</label>
+          <select [(ngModel)]="selectedEmployee.department" name="department" required>
+            <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Data Admissão:</label>
+          <input type="date" [(ngModel)]="selectedEmployee.hireDate" name="hireDate" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Salário:</label>
+          <input type="number" [(ngModel)]="selectedEmployee.salary" name="salary" min="0" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Status:</label>
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="selectedEmployee.status" name="status">
+            <span class="slider"></span>
+          </label>
+        </div>
+  
+        <div class="form-buttons">
+          <button type="button" class="cancel-btn" (click)="closeForm()">Cancelar</button>
+          <button type="submit" class="save-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>

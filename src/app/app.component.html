@@ -1,0 +1,16 @@
+<header class="header" [class.active]="isMenuOpen">
+    <div class="logo-placeholder"></div>
+    
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <span class="hamburger"></span>
+    </button>
+    
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active">Home</a>
+      <a routerLink="/funcionarios" routerLinkActive="active">Funcionários</a>
+      <a routerLink="/folha-pagamento">Folha de Pagamento</a>
+      <a href="#">Benefícios</a>
+      <a href="#">Relatórios</a>
+    </nav>
+  </header>
+<router-outlet></router-outlet>

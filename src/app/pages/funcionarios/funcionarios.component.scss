@@ -1,0 +1,336 @@
+/* Variáveis */
+$dark-blue: #2C3E50;
+$green: #27AE60;
+$light-green: #2ECC71;
+$red: #E74C3C;
+$gray: #95A5A6;
+$dark-gray: #7F8C8D;
+$light-blue: #a6dbff;
+$light-gray: #ECF0F1;
+
+.add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.add-button {
+  &.pulse {
+    animation: pulse 1.5s infinite;
+  }
+  background: #27AE60;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #2ECC71;
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+
+  .plus-icon {
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    margin-top: -3px;
+  }
+}
+
+/* Tabela */
+.table-container {
+  position: relative;
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  margin: 20px 5% 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f8f9fa;
+      color: $dark-gray;
+    }
+  }
+
+  .actions {
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .edit-btn { color: #3498DB; }
+    .delete-btn { color: $red; }
+  }
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 0 15px;
+  margin-top: 100px;
+
+  h2 {
+    color: #2C3E50;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.side-add-button {
+  background: #27AE60;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin-left: auto; // Empurra para a direita
+
+  &:hover {
+    background: #2ECC71;
+    transform: rotate(90deg);
+    
+    .plus-icon {
+      transform: scale(1.2);
+    }
+  }
+
+  .plus-icon {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    position: relative;
+    top: -1px;
+  }
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    
+    .side-add-button {
+      order: -1;
+      align-self: flex-end;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: $dark-gray;
+}
+
+/* Modal */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem; // Adiciona padding para telas pequenas
+  overflow-y: auto; // Permite rolagem se necessário
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%; // Ocupa 100% em mobile
+  max-width: 500px;
+  max-height: 90vh; // Limita a altura máxima
+  overflow-y: auto; // Permite rolagem interna
+  margin: auto; // Centraliza verticalmente
+  position: relative;
+
+  .form-group {
+    margin-bottom: 1rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: $dark-gray;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px; // Evita zoom em mobile
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap; // Permite quebra de linha
+
+    button {
+      flex: 1 1 100%; // Ocupa 100% em mobile
+      padding: 0.8rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+
+      @media (min-width: 480px) {
+        flex: 1; // Volta ao layout original em telas maiores
+      }
+    }
+
+    .save-btn {
+      background: $green;
+      color: white;
+
+      &:hover {
+        background: $light-green;
+      }
+    }
+
+    .cancel-btn {
+      background: $gray;
+      color: white;
+
+      &:hover {
+        background: darken($gray, 10%);
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      input, select {
+        padding: 0.7rem;
+      }
+    }
+
+    .form-buttons {
+      margin-top: 1.5rem;
+      gap: 0.8rem;
+
+      button {
+        padding: 0.7rem;
+      }
+    }
+  }
+}
+
+/* Footer */
+/*.footer {
+  background: $dark-blue;
+  padding: 2rem 5%;
+  color: white;
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .links {
+    display: flex;
+    gap: 2rem;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .newsletter {
+    input {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: none;
+      margin-right: 1rem;
+    }
+
+    button {
+      background: $green;
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}*/
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  .modal {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,93 @@
+<section class="folha-container">
+    <h1>Gerenciamento da Folha de Pagamento</h1>
+    <p class="subtitle">Visualize e gerencie a folha de pagamento de seus funcionários de maneira rápida e eficiente.</p>
+  
+    <div class="filtros">
+      <input type="text" placeholder="Pesquisar por nome ou CPF" [(ngModel)]="searchTerm">
+      
+      <select [(ngModel)]="selectedMonth">
+        <option *ngFor="let mes of mesesAnos" [value]="mes">{{ mes | date:'MM/yyyy' }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedStatus">
+        <option *ngFor="let status of statusOptions" [value]="status">
+          {{ status === 'todos' ? 'Todos Status' : (status === 'pago' ? 'Pago' : 'Não Pago') }}
+        </option>
+      </select>
+  
+      <button class="generate-btn">Gerar Folha de Pagamento</button>
+    </div>
+  
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome do Funcionário</th>
+            <th>Cargo</th>
+            <th>Salário Bruto</th>
+            <th>Descontos</th>
+            <th>Salário Líquido</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let folha of folhas()">
+            <td>{{ folha.nome }}</td>
+            <td>{{ folha.cargo }}</td>
+            <td>{{ folha.salarioBruto | currency:'BRL' }}</td>
+            <td>{{ folha.descontos | currency:'BRL' }}</td>
+            <td>{{ calcularLiquido(folha.salarioBruto, folha.descontos) | currency:'BRL' }}</td>
+            <td>
+              <span class="status-badge" [class.pago]="folha.status">{{ folha.status ? 'Pago' : 'Não Pago' }}</span>
+            </td>
+            <td class="actions">
+              <button class="edit-btn" (click)="openEditModal(folha)">✏️</button>
+              <button class="delete-btn" (click)="deleteFolha(folha.id)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  <!-- Modal de Edição -->
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal">
+      <h2>Editar Folha de Pagamento</h2>
+      <form *ngIf="selectedFolha" (ngSubmit)="saveEdits()">
+        <div class="form-group">
+          <label>Nome:</label>
+          <input type="text" [value]="selectedFolha.nome" disabled>
+        </div>
+  
+        <div class="form-group">
+          <label>Cargo:</label>
+          <input type="text" [value]="selectedFolha.cargo" disabled>
+        </div>
+  
+        <div class="form-group">
+          <label>Salário Bruto:</label>
+          <input type="number" [(ngModel)]="selectedFolha.salarioBruto" name="salarioBruto" min="0">
+        </div>
+  
+        <div class="form-group">
+          <label>Descontos:</label>
+          <input type="number" [(ngModel)]="selectedFolha.descontos" name="descontos" min="0">
+        </div>
+  
+        <div class="form-group">
+          <label>Status:</label>
+          <select [(ngModel)]="selectedFolha.status" name="status">
+            <option [value]="true">Pago</option>
+            <option [value]="false">Não Pago</option>
+          </select>
+        </div>
+  
+        <div class="form-buttons">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="save-btn">Salvar Alterações</button>
+        </div>
+      </form>
+    </div>
+  </div>

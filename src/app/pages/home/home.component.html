@@ -1,0 +1,64 @@
+<!-- Header -->
+<!--<header class="header">
+  <div class="logo-container">
+    <div class="logo-placeholder"></div>
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+  
+  <nav class="nav-links" [class.active]="isMenuOpen">
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/funcionarios" routerLinkActive="active">Funcionários</a>
+    <a href="#">Folha de Pagamento</a>
+    <a href="#">Benefícios</a>
+    <a href="#">Relatórios</a>
+  </nav>
+</header>-->
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Simplifique a Gestão de Pessoas</h1>
+      <button class="cta-button">Comece agora</button>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature-card" *ngFor="let feature of features">
+      <div class="feature-icon">{{ feature.icon }}</div>
+      <h3>{{ feature.title }}</h3>
+      <p>{{ feature.description }}</p>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+      <div class="client-photo"></div>
+      <h4>{{ testimonial.name }}</h4>
+      <p class="role">{{ testimonial.role }}</p>
+      <p class="testimonial-text">{{ testimonial.text }}</p>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-section">
+      <div class="social-icons">
+        <a href="#">📘</a>
+        <a href="#">📷</a>
+        <a href="#">🐦</a>
+      </div>
+      <div class="legal-links">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </div>
+      <div class="newsletter">
+        <input type="email" placeholder="Insira seu e-mail">
+        <button>Inscrever</button>
+      </div>
+    </div>
+  </footer>
+  
