@@ -6,15 +6,15 @@ $red: #E74C3C;
 $gray: #95A5A6;
 $dark-gray: #7F8C8D;
 
-.funcionarios-container {
+.relatorios-container {
   padding: 2rem 5%;
-  max-width: 1600px;
+  max-width: 1500px;
   margin: 0 auto;
-  min-height: 78.5vh;
+  margin-top: 20vh;
+  min-height: 58.5vh;
 }
 
 h1 {
-  margin-top: 23.3vh;
   color: $dark-blue;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
@@ -32,7 +32,7 @@ h1 {
   gap: 1rem;
   margin-bottom: 2rem;
 
-  input, select {
+  select, input {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -44,7 +44,26 @@ h1 {
     gap: 0.5rem;
   }
 
-  .add-button {
+  .formatos {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &.active {
+        border-color: $blue;
+        color: $blue;
+      }
+    }
+  }
+
+  .generate-btn {
     background: $blue;
     color: white;
     border: none;
@@ -103,8 +122,8 @@ table {
   }
 
   &:not(.ativo) {
-    background: #ffebee;
-    color: #c62828;
+    background: #f5f5f5;
+    color: $dark-gray;
   }
 }
 
@@ -115,10 +134,12 @@ table {
     cursor: pointer;
     padding: 0.5rem;
     font-size: 1.2rem;
+    margin: 0 2px;
   }
 
-  .edit-btn { color: $blue; }
-  .delete-btn { color: $red; }
+  .pdf-btn { color: $red; }
+  .excel-btn { color: $green; }
+  .details-btn { color: $blue; }
 }
 
 /* Modal */
@@ -140,47 +161,30 @@ table {
   padding: 2rem;
   border-radius: 10px;
   width: 90%;
-  max-width: 500px;
+  max-width: 600px;
 
-  .form-group {
+  .info-group {
     margin-bottom: 1rem;
 
     label {
       display: block;
-      margin-bottom: 0.5rem;
       color: $dark-gray;
+      margin-bottom: 0.3rem;
     }
 
-    input, select {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+    ul {
+      padding-left: 1.5rem;
     }
   }
 
-  .form-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-
-    button {
-      flex: 1;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .save-btn {
-      background: $green;
-      color: white;
-    }
-
-    .cancel-btn {
-      background: $gray;
-      color: white;
-    }
+  .close-btn {
+    background: $gray;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
   }
 }
 
@@ -189,7 +193,7 @@ table {
     font-size: 2rem;
   }
 
-  .filtros > input, select{
+  .filtros > select, .periodo, .formatos, .generate-btn {
     grid-template-columns: 1fr;
   }
 

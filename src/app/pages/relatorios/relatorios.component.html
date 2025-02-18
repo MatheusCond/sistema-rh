@@ -1,0 +1,99 @@
+<section class="relatorios-container">
+    <h1>Relatórios de Recursos Humanos</h1>
+    <p class="subtitle">Gere relatórios detalhados sobre funcionários, folha de pagamento e benefícios.</p>
+
+    <div class="filtros">
+      <select [(ngModel)]="filtros.tipo">
+        <option *ngFor="let tipo of tiposRelatorio" [value]="tipo">{{ tipo }}</option>
+      </select>
+  
+      <div class="periodo">
+        <input type="date" [(ngModel)]="filtros.inicio" placeholder="Data início">
+        <input type="date" [(ngModel)]="filtros.fim" placeholder="Data fim">
+      </div>
+  
+      <select [(ngModel)]="filtros.departamento">
+        <option value="todos">Todos Departamentos</option>
+        <option *ngFor="let dept of departamentos" [value]="dept">{{ dept }}</option>
+      </select>
+  
+      <div class="formatos">
+        <button *ngFor="let fmt of formatos" 
+                [class.active]="filtros.formato === fmt"
+                (click)="filtros.formato = fmt">
+          {{ fmt }}
+        </button>
+      </div>
+  
+      <button class="generate-btn" (click)="gerarRelatorio()">Gerar Relatório</button>
+    </div>
+  
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th (click)="ordenar('funcionario')">Nome do Funcionário</th>
+            <th (click)="ordenar('cargo')">Cargo</th>
+            <th (click)="ordenar('departamento')">Departamento</th>
+            <th (click)="ordenar('admissao')">Data de Admissão</th>
+            <th (click)="ordenar('salario')">Salário Atual</th>
+            <th>Benefícios Recebidos</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let relatorio of relatorios()">
+            <td>{{ relatorio.funcionario }}</td>
+            <td>{{ relatorio.cargo }}</td>
+            <td>{{ relatorio.departamento }}</td>
+            <td>{{ relatorio.admissao | date:'dd/MM/yyyy' }}</td>
+            <td>{{ relatorio.salario | currency:'BRL' }}</td>
+            <td>{{ relatorio.beneficios.join(', ') }}</td>
+            <td>
+              <span class="status-badge" [class.ativo]="relatorio.status">
+                {{ relatorio.status ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button class="pdf-btn" (click)="exportar('PDF')">📄</button>
+              <button class="excel-btn" (click)="exportar('Excel')">📊</button>
+              <button class="details-btn" (click)="abrirDetalhes(relatorio)">👁️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  <!-- Modal de Detalhes -->
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal">
+      <h2>Detalhes do Relatório</h2>
+      <div class="modal-content" *ngIf="selectedRelatorio">
+        <div class="info-group">
+          <label>Funcionário:</label>
+          <p>{{ selectedRelatorio.funcionario }}</p>
+        </div>
+        
+        <div class="info-group">
+          <label>Cargo:</label>
+          <p>{{ selectedRelatorio.cargo }}</p>
+        </div>
+  
+        <div class="info-group">
+          <label>Salário Detalhado:</label>
+          <p>{{ selectedRelatorio.salario | currency:'BRL' }}</p>
+        </div>
+  
+        <div class="info-group">
+          <label>Benefícios:</label>
+          <ul>
+            <li *ngFor="let beneficio of selectedRelatorio.beneficios">{{ beneficio }}</li>
+          </ul>
+        </div>
+  
+        <button class="close-btn" (click)="fecharModal()">Fechar</button>
+      </div>
+    </div>
+  </div>  

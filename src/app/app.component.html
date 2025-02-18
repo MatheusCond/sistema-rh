@@ -9,8 +9,26 @@
       <a routerLink="/" routerLinkActive="active">Home</a>
       <a routerLink="/funcionarios" routerLinkActive="active">Funcionários</a>
       <a routerLink="/folha-pagamento">Folha de Pagamento</a>
-      <a href="#">Benefícios</a>
-      <a href="#">Relatórios</a>
+      <a routerLink="/beneficios">Benefícios</a>
+      <a routerLink="/relatorios">Relatórios</a>
     </nav>
   </header>
 <router-outlet></router-outlet>
+
+<footer class="footer">
+  <div class="footer-section">
+    <div class="social-icons">
+      <a href="#">📘</a>
+      <a href="#">📷</a>
+      <a href="#">🐦</a>
+    </div>
+    <div class="legal-links">
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+    <div class="newsletter">
+      <input type="email" placeholder="Insira seu e-mail">
+      <button>Inscrever</button>
+    </div>
+  </div>
+</footer>

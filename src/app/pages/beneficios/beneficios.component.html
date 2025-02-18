@@ -1,0 +1,100 @@
+<section class="beneficios-container">
+    <h1>Gerenciamento de Benefícios</h1>
+    <p class="subtitle">Acompanhe e gerencie os benefícios oferecidos aos funcionários de forma simples e eficiente.</p>
+  
+    <div class="filtros">
+      <input type="text" placeholder="Pesquisar por nome ou CPF" [(ngModel)]="searchTerm">
+      
+      <select [(ngModel)]="selectedTipo">
+        <option value="todos">Todos os Tipos</option>
+        <option *ngFor="let tipo of tiposBeneficio" [value]="tipo">{{ tipo }}</option>
+      </select>
+  
+      <select [(ngModel)]="selectedStatus">
+        <option value="todos">Todos Status</option>
+        <option value="ativo">Ativo</option>
+        <option value="inativo">Inativo</option>
+      </select>
+  
+      <button class="add-button" (click)="openModal()">+ Adicionar Benefício</button>
+    </div>
+  
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Funcionário</th>
+            <th>Cargo</th>
+            <th>Benefício</th>
+            <th>Valor</th>
+            <th>Data Concessão</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let beneficio of beneficios()">
+            <td>{{ beneficio.funcionario }}</td>
+            <td>{{ beneficio.cargo }}</td>
+            <td>{{ beneficio.tipo }}</td>
+            <td>{{ beneficio.valor | currency:'BRL' }}</td>
+            <td>{{ beneficio.dataConcessao | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <span class="status-badge" [class.ativo]="beneficio.status">
+                {{ beneficio.status ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td class="actions">
+              <button class="edit-btn" (click)="openModal(beneficio)">✏️</button>
+              <button class="delete-btn" (click)="deleteBeneficio(beneficio.id)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  <!-- Modal -->
+  <div class="modal-overlay" *ngIf="showModal">
+    <div class="modal">
+      <h2>{{ editing ? 'Editar' : 'Novo' }} Benefício</h2>
+      <form (ngSubmit)="saveBeneficio()">
+        <div class="form-group">
+          <label>Funcionário:</label>
+          <select [(ngModel)]="selectedBeneficio.funcionario" name="funcionario" required>
+            <option *ngFor="let func of funcionarios" [value]="func">{{ func }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Tipo de Benefício:</label>
+          <select [(ngModel)]="selectedBeneficio.tipo" name="tipo" required>
+            <option *ngFor="let tipo of tiposBeneficio" [value]="tipo">{{ tipo }}</option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Valor:</label>
+          <input type="number" [(ngModel)]="selectedBeneficio.valor" name="valor" min="0" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Data de Concessão:</label>
+          <input type="date" [(ngModel)]="selectedBeneficio.dataConcessao" name="dataConcessao" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Status:</label>
+          <select [(ngModel)]="selectedBeneficio.status" name="status" required>
+            <option [value]="true">Ativo</option>
+            <option [value]="false">Inativo</option>
+          </select>
+        </div>
+  
+        <div class="form-buttons">
+          <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="save-btn">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>

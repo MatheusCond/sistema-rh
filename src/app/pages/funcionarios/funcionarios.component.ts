@@ -2,13 +2,12 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface Employee {
+interface Funcionario {
   id: number;
-  name: string;
-  position: string;
-  department: string;
-  hireDate: string;
-  salary: number;
+  nome: string;
+  cargo: string;
+  departamento: string;
+  dataAdmissao: string;
   status: boolean;
 }
 
@@ -20,85 +19,93 @@ interface Employee {
   styleUrls: ['./funcionarios.component.scss']
 })
 export class FuncionariosComponent {
-  employees = signal<Employee[]>([
+  funcionarios = signal<Funcionario[]>([
     {
       id: 1,
-      name: 'João Silva',
-      position: 'Desenvolvedor',
-      department: 'TI',
-      hireDate: '2022-03-15',
-      salary: 7500,
+      nome: 'João Silva',
+      cargo: 'Desenvolvedor',
+      departamento: 'TI',
+      dataAdmissao: '2022-03-15',
       status: true
     },
     {
       id: 2,
-      name: 'Maria Souza',
-      position: 'Analista RH',
-      department: 'RH',
-      hireDate: '2021-11-02',
-      salary: 6500,
+      nome: 'Maria Souza',
+      cargo: 'Analista RH',
+      departamento: 'RH',
+      dataAdmissao: '2021-11-02',
       status: true
     }
   ]);
 
-  showForm = false;
+  showModal = false;
   editing = false;
-  selectedEmployee: Partial<Employee> = {};
-  departments = ['TI', 'RH', 'Financeiro', 'Marketing'];
+  searchTerm = '';
+  selectedStatus = 'todos';
+  selectedDepto = 'todos';
+  dataInicio = '';
+  dataFim = '';
   
-  newEmployee: Partial<Employee> = {
-    name: '',
-    position: '',
-    department: '',
-    hireDate: '',
-    salary: 0,
+  selectedFuncionario: Funcionario = {
+    id: 0,
+    nome: '',
+    cargo: '',
+    departamento: '',
+    dataAdmissao: '',
     status: true
   };
 
-  openForm(employee?: Employee) {
-    this.showForm = true;
-    if (employee) {
-      this.editing = true;
-      this.selectedEmployee = { ...employee };
-    } else {
-      this.editing = false;
-      this.selectedEmployee = { ...this.newEmployee };
-    }
+  departamentos = ['TI', 'RH', 'Financeiro', 'Marketing'];
+  ordenacao = { campo: 'nome', direcao: 'asc' };
+
+  openModal(funcionario?: Funcionario) {
+    this.showModal = true;
+    this.editing = !!funcionario;
+    this.selectedFuncionario = funcionario ? {...funcionario} : {
+      id: Date.now(),
+      nome: '',
+      cargo: '',
+      departamento: '',
+      dataAdmissao: new Date().toISOString().split('T')[0],
+      status: true
+    };
   }
 
-  saveEmployee() {
+  salvarFuncionario() {
     if (this.editing) {
-      this.employees.update(list => 
-        list.map(e => e.id === this.selectedEmployee.id ? this.selectedEmployee as Employee : e)
+      this.funcionarios.update(list => 
+        list.map(f => f.id === this.selectedFuncionario.id ? this.selectedFuncionario : f)
       );
     } else {
-      this.employees.update(list => [
-        ...list,
-        { ...this.selectedEmployee, id: Date.now() } as Employee
-      ]);
+      this.funcionarios.update(list => [...list, this.selectedFuncionario]);
     }
-    this.closeForm();
+    this.fecharModal();
   }
 
-  deleteEmployee(id: number) {
+  excluirFuncionario(id: number) {
     if (confirm('Tem certeza que deseja excluir este funcionário?')) {
-      this.employees.update(list => list.filter(e => e.id !== id));
+      this.funcionarios.update(list => list.filter(f => f.id !== id));
     }
   }
 
-  closeForm() {
-    this.showForm = false;
-    this.selectedEmployee = {};
+  fecharModal() {
+    this.showModal = false;
+    this.selectedFuncionario = {
+      id: 0,
+      nome: '',
+      cargo: '',
+      departamento: '',
+      dataAdmissao: '',
+      status: true
+    };
   }
 
-  ngOnInit() {
-    setTimeout(() => {
-      const button = document.querySelector('.add-button');
-      button?.classList.add('pulse');
-      
-      setTimeout(() => {
-        button?.classList.remove('pulse');
-      }, 3000);
-    }, 1000);
+  ordenar(campo: string) {
+    if (this.ordenacao.campo === campo) {
+      this.ordenacao.direcao = this.ordenacao.direcao === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.ordenacao.campo = campo;
+      this.ordenacao.direcao = 'asc';
+    }
   }
 }
