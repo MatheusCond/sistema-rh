@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { StartNowModalComponent } from '../start-now-modal/start-now-modal.component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, StartNowModalComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  @ViewChild('startNowModal') startNowModal!: StartNowModalComponent;
 
   features = [
     { icon: '👥', title: 'Gestão de Funcionários', description: 'Controle completo de dados dos colaboradores' },

@@ -1,0 +1,53 @@
+<div class="modal-overlay" [class.active]="isOpen" (click)="close()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="close()">&times;</button>
+      
+      <div class="content-wrapper">
+        <div class="left-side">
+          <h2>A plataforma para o seu RH</h2>
+          <div class="typing-animation">
+            {{ animatedText }}<span class="cursor">|</span>
+          </div>
+          <p class="info-text">Ideal para automatizar os processos do RH de forma simples.</p>
+        </div>
+  
+        <div class="right-side">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <input type="text" formControlName="nome" placeholder="Nome Completo">
+              <div *ngIf="form.get('nome')?.errors?.['required'] && form.get('nome')?.touched" 
+                   class="error-msg">Nome é obrigatório</div>
+            </div>
+  
+            <div class="form-group">
+              <input type="email" formControlName="email" placeholder="E-mail">
+              <div *ngIf="form.get('email')?.errors?.['email']" 
+                   class="error-msg">E-mail inválido</div>
+            </div>
+  
+            <div class="form-group">
+              <input type="tel" formControlName="telefone" placeholder="Telefone" appPhoneMask>
+              <div *ngIf="form.get('telefone')?.errors?.['pattern']" 
+                   class="error-msg">Formato inválido</div>
+            </div>
+  
+            <div class="form-group">
+              <input type="password" formControlName="senha" placeholder="Senha">
+              <div *ngIf="form.get('senha')?.errors?.['minlength']" 
+                   class="error-msg">Mínimo 6 caracteres</div>
+            </div>
+  
+            <div class="form-group">
+              <input type="password" formControlName="confirmarSenha" placeholder="Confirmar Senha">
+              <div *ngIf="form.errors?.['mismatch']" 
+                   class="error-msg">Senhas não coincidem</div>
+            </div>
+  
+            <button type="submit" class="submit-btn" [disabled]="form.invalid">
+              Cadastrar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

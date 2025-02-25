@@ -123,19 +123,19 @@ table {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 1rem; // Adiciona padding para telas pequenas
-  overflow-y: auto; // Permite rolagem se necessário
+  padding: 1rem; 
+  overflow-y: auto; 
 }
 
 .modal {
     background: white;
   padding: 2rem;
   border-radius: 10px;
-  width: 100%; // Ocupa 100% em mobile
+  width: 100%; 
   max-width: 500px;
-  max-height: 90vh; // Limita a altura máxima
-  overflow-y: auto; // Permite rolagem interna
-  margin: auto; // Centraliza verticalmente
+  max-height: 90vh; 
+  overflow-y: auto; 
+  margin: auto; 
   position: relative;
 
   .form-group {
@@ -152,7 +152,7 @@ table {
       padding: 0.8rem;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-size: 16px; // Evita zoom em mobile
+      font-size: 16px; 
     }
   }
 
@@ -160,10 +160,10 @@ table {
     display: flex;
     gap: 1rem;
     margin-top: 2rem;
-    flex-wrap: wrap; // Permite quebra de linha
+    flex-wrap: wrap; 
 
     button {
-      flex: 1 1 100%; // Ocupa 100% em mobile
+      flex: 1 1 100%; 
       padding: 0.8rem;
       border: none;
       border-radius: 4px;
@@ -171,7 +171,7 @@ table {
       font-size: 1rem;
 
       @media (min-width: 480px) {
-        flex: 1; // Volta ao layout original em telas maiores
+        flex: 1; 
       }
     }
 

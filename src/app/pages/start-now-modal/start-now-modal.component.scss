@@ -1,0 +1,148 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  
+    &.active {
+      display: flex;
+    }
+  }
+  
+  .modal {
+    background: white;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+    animation: modalEnter 0.3s ease-out;
+  
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #666;
+      transition: color 0.2s;
+  
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+  
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .left-side {
+    padding-right: 2rem;
+    border-right: 1px solid #eee;
+  
+    h2 {
+      color: #2C3E50;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+  
+    .typing-animation {
+      font-size: 1.5rem;
+      color: #3498DB;
+      min-height: 2.5rem;
+      margin-bottom: 2rem;
+  
+      .cursor {
+        animation: blink 1s infinite;
+        color: #333;
+      }
+    }
+  
+    .info-text {
+      color: #7F8C8D;
+      font-size: 1rem;
+    }
+  
+    @media (max-width: 768px) {
+      border-right: none;
+      padding-right: 0;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 2rem;
+    }
+  }
+  
+  .right-side {
+    .form-group {
+      margin-bottom: 1.5rem;
+  
+      input {
+        width: 89%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+        &:focus {
+          border-color: #3498DB;
+          outline: none;
+        }
+      }
+  
+      .error-msg {
+        color: #E74C3C;
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+      }
+    }
+  
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #27AE60;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+  
+      &:hover:not(:disabled) {
+        background: #2ECC71;
+      }
+  
+      &:disabled {
+        background: #95A5A6;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  @keyframes modalEnter {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
